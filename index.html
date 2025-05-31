@@ -6,9 +6,9 @@
   <title>COD Hope - YouTube Channel</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
       background-color: #0e0e0e;
       color: #fff;
+      font-family: Arial, sans-serif;
       text-align: center;
       padding: 2rem;
     }
@@ -22,38 +22,67 @@
       height: 400px;
     }
     h1 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .stats {
+      font-size: 1.2rem;
+      margin: 1rem 0 2rem;
     }
     a {
       color: #1da1f2;
       text-decoration: none;
     }
+    .footer {
+      margin-top: 3rem;
+      font-size: 0.9rem;
+      color: #aaa;
+    }
   </style>
 </head>
 <body>
   <h1>Welcome to COD Hope's Channel</h1>
-  <p>Watch some of our recent videos right here!</p>
+  <div class="stats" id="channel-stats">Loading stats...</div>
 
-  <!-- Embedded YouTube videos -->
-  <iframe 
-    src="https://www.youtube.com/embed/CzD2dU6hHt8" 
-    allowfullscreen>
-  </iframe>
-
-  <iframe 
-    src="https://www.youtube.com/embed/SXzA5KDi5AI" 
-    allowfullscreen>
-  </iframe>
-
-  <iframe 
-    src="https://www.youtube.com/embed/HvGpKIS7au4" 
-    allowfullscreen>
-  </iframe>
+  <!-- Embedded YouTube Videos -->
+  <iframe src="https://www.youtube.com/embed/CzD2dU6hHt8" allowfullscreen></iframe>
+  <iframe src="https://www.youtube.com/embed/SXzA5KDi5AI" allowfullscreen></iframe>
+  <iframe src="https://www.youtube.com/embed/HvGpKIS7au4" allowfullscreen></iframe>
 
   <p>
-    More videos on 
-    <a href="https://www.youtube.com/@COD-hope" target="_blank">COD Hope's YouTube Channel</a>
+    🎮 More content at 
+    <a href="https://www.youtube.com/@COD-hope" target="_blank">@COD-hope on YouTube</a>
   </p>
+
+  <div class="footer">Built with ❤️ for COD Hope fans</div>
+
+  <script>
+    async function getYouTubeStats() {
+      const apiKey = 'AIzaSyDXyQeR52uh-uC-md49_OFAaCfp7DFdJ0c';
+      const channelId = 'UC1oBSF8uOUq1vLu4Tznpz-g';
+
+      try {
+        const response = await fetch(
+          `https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${channelId}&key=${apiKey}`
+        );
+        const data = await response.json();
+
+        if (data.items && data.items.length > 0) {
+          const stats = data.items[0].statistics;
+          const subs = Number(stats.subscriberCount).toLocaleString();
+          const views = Number(stats.viewCount).toLocaleString();
+
+          document.getElementById('channel-stats').innerHTML =
+            `📊 Subscribers: <strong>${subs}</strong><br>👁️ Total Views: <strong>${views}</strong>`;
+        } else {
+          document.getElementById('channel-stats').textContent = 'Could not load stats.';
+        }
+      } catch (error) {
+        document.getElementById('channel-stats').textContent = 'Error fetching stats.';
+      }
+    }
+
+    getYouTubeStats();
+  </script>
 </body>
 </html>
