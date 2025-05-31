@@ -1,60 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>COD Hope - YouTube Channel</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>COD Hope - Live YouTube Stats</title>
   <style>
     body {
       background-color: #0e0e0e;
-      color: #fff;
+      color: #ffffff;
       font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
       text-align: center;
-      padding: 2rem;
-    }
-    iframe {
-      border: none;
-      border-radius: 12px;
-      margin: 1rem auto;
-      display: block;
-      width: 100%;
-      max-width: 700px;
-      height: 400px;
     }
     h1 {
-      font-size: 2.5rem;
-      margin-bottom: 0.5rem;
+      font-size: 2rem;
+      margin-bottom: 1rem;
     }
     .stats {
-      font-size: 1.2rem;
-      margin: 1rem 0 2rem;
+      font-size: 1.5rem;
+      margin-top: 1rem;
     }
     a {
       color: #1da1f2;
       text-decoration: none;
-    }
-    .footer {
-      margin-top: 3rem;
-      font-size: 0.9rem;
-      color: #aaa;
+      font-size: 1rem;
+      margin-top: 1rem;
+      display: inline-block;
     }
   </style>
 </head>
 <body>
-  <h1>Welcome to COD Hope's Channel</h1>
-  <div class="stats" id="channel-stats">Loading stats...</div>
-
-  <!-- Embedded YouTube Videos -->
-  <iframe src="https://www.youtube.com/embed/CzD2dU6hHt8" allowfullscreen></iframe>
-  <iframe src="https://www.youtube.com/embed/SXzA5KDi5AI" allowfullscreen></iframe>
-  <iframe src="https://www.youtube.com/embed/HvGpKIS7au4" allowfullscreen></iframe>
-
-  <p>
-    🎮 More content at 
-    <a href="https://www.youtube.com/@COD-hope" target="_blank">@COD-hope on YouTube</a>
-  </p>
-
-  <div class="footer">Built with ❤️ for COD Hope fans</div>
+  <h1>COD Hope - Live YouTube Stats</h1>
+  <div id="channel-stats" class="stats">Loading...</div>
+  <a href="https://www.youtube.com/@COD-hope" target="_blank">Visit Channel</a>
 
   <script>
     async function getYouTubeStats() {
@@ -73,7 +56,7 @@
           const views = Number(stats.viewCount).toLocaleString();
 
           document.getElementById('channel-stats').innerHTML =
-            `📊 Subscribers: <strong>${subs}</strong><br>👁️ Total Views: <strong>${views}</strong>`;
+            `📊 Subscribers: <strong>${subs}</strong><br>👁️ Views: <strong>${views}</strong>`;
         } else {
           document.getElementById('channel-stats').textContent = 'Could not load stats.';
         }
@@ -83,6 +66,7 @@
     }
 
     getYouTubeStats();
+    setInterval(getYouTubeStats, 30000); // Refresh every 30 seconds
   </script>
 </body>
 </html>
